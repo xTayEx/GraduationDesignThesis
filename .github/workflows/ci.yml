@@ -26,10 +26,5 @@ jobs:
           bibtex main
           xelatex -synctex=1 -interaction=nonstopmode -file-line-error main.tex
           xelatex -synctex=1 -interaction=nonstopmode -file-line-error main.tex
-      - name: release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: main.pdf
           
           
