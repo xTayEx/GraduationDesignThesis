@@ -26,5 +26,3 @@ jobs:
           bibtex main
           xelatex -synctex=1 -interaction=nonstopmode -file-line-error main.tex
           xelatex -synctex=1 -interaction=nonstopmode -file-line-error main.tex
-          
-          
