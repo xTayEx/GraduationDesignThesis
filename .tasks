@@ -46,7 +46,7 @@ errorformat=%f:%l:%m
 save=1
 
 [count]
-command=pdftotext main.pdf - | wc -w
+command=pdftotext main.pdf - | wc --char
 
 cwd=~/GraduationDesignThesis/src/thesis/
 
