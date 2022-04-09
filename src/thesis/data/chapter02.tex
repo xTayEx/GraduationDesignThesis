@@ -51,6 +51,22 @@ GNSS的定位原理可以认为是求解一组方程。对于用户所处空间�
 
 
 \subsection{LSTM概述}
+
+\begin{equation}
+    f_i^{(t)}=\sigma\bigg(b_i^f+\sum_jU_{i,j}^fx_j^(t)+\sum_jW_{i,j}^fh_j^{(t-1)}\bigg)
+    \label{eq:3}
+\end{equation}
+
+\begin{equation}
+    s_i^{(t)}=f_i^{(t)}s_i^{(t-1)}+g_i^{(t)}\sigma\bigg(b_i+\sum_jU_{i,j}x_j^{(t)}+\sum_jW_{i,j}h_j^{(t-1)}\bigg)
+    \label{eq:4}
+\end{equation}
+
+\begin{equation}
+    g_i^{(t)}=\sigma\bigg(b_i^g+\sum_jU_{i,j}^gx_j^{(t)}+\sum_jW_{i,j}^gh_j^{(t-1)}\bigg)
+    \label{eq:5}
+\end{equation}
+
 \subsection{汽车功能安全概述}
 \subsection{国内外研究现状}
 \subsubsection{智能网联汽车GNSS位置欺骗攻击检测方面}
