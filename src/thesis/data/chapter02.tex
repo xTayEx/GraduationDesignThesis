@@ -51,23 +51,57 @@ GNSS的定位原理可以认为是求解一组方程。对于用户所处空间�
 
 
 \subsection{LSTM概述}
+长短期记忆（LSTM）网络是深度学习领域处理序列问题的经典模型。该模型以传统的递归神经网络（RNN）为基础，通过增加细胞状态并引入门控电路（即输入门，输出门和遗忘门），有效解决了传统RNN在处理长序列问题时的依赖问题。LSTM网络常被应用于序列问题，如机器翻译、文本生成、语音识别等。在本文中，由于汽车行驶的轨迹可以认为是连续序列，且轨迹点之间是有一定的关系与约束的，因此可以将LSTM网络应用到智能网联汽车的GNSS位置欺骗检测中。图\ref{fig:LSTM_arch}为LSTM网络结构。
 
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{../graphics/LSTM.eps}
+        \caption{LSTM网络结构图}
+        \label{fig:LSTM_arch}
+    \end{center}
+\end{figure}
+
+在LSTM网络中，遗忘门的主要作用是控制当前细胞中信息的权重，并依次决定是否要舍弃信息。其计算公式如下：
 \begin{equation}
     f_i^{(t)}=\sigma\bigg(b_i^f+\sum_jU_{i,j}^fx_j^(t)+\sum_jW_{i,j}^fh_j^{(t-1)}\bigg)
     \label{eq:3}
 \end{equation}
+其中，$\textbf{x}^{(t)}$是当前输入向量，$\textbf{h}^t$是当前隐藏层向量，其中包含所有LSTM细胞的输出。$\textbf{b}^f$、$\textbf{U}^f$、$\textbf{W}^f$分别表示偏置、输入权重和循环权重。$\sigma$表示sigmoid单元，作用是将权重设置为0到1之间的值。
 
-\begin{equation}
-    s_i^{(t)}=f_i^{(t)}s_i^{(t-1)}+g_i^{(t)}\sigma\bigg(b_i+\sum_jU_{i,j}x_j^{(t)}+\sum_jW_{i,j}h_j^{(t-1)}\bigg)
-    \label{eq:4}
-\end{equation}
-
+输入门的作用主要是确定当前哪些细胞内的位置需要更新，并计算更新后的值。其计算公式如下所示：
 \begin{equation}
     g_i^{(t)}=\sigma\bigg(b_i^g+\sum_jU_{i,j}^gx_j^{(t)}+\sum_jW_{i,j}^gh_j^{(t-1)}\bigg)
+    \label{eq:4}
+\end{equation}
+其中，$\textbf{x}^{(t)}$，$\textbf{h}^t$分别表示当前输入向量与当前隐藏层向量；$\textbf{b}^f$、$\textbf{U}^f$、$\textbf{W}^f$分别表示偏置、输入权重和循环权重。在完成了输入门与遗忘门的计算后，LSTM细胞内部参数会以下方式更新：
+\begin{equation}
+    s_i^{(t)}=f_i^{(t)}s_i^{(t-1)}+g_i^{(t)}\sigma\bigg(b_i+\sum_jU_{i,j}x_j^{(t)}+\sum_jW_{i,j}h_j^{(t-1)}\bigg)
     \label{eq:5}
 \end{equation}
+其中，$\textbf{b}$、$\textbf{U}$、$\textbf{W}$分别表示LSTM细胞内的偏置、输入权重和循环权重。
+
+最后，LSTM会计算出最终隐藏层的输出。公式\ref{eq:6}计算出需要输出的细胞状态数值，公式\ref{eq:7}通过$\tanh$函数将细胞状态处理为一个范围在$(-1,1)$内的数值。最后，$q_i^{(t)}$与$h_i^{(t)}$相乘得到当前时刻隐藏层输出。
+\begin{equation}
+    q_i^{(t)}=\sigma\bigg(b_i^o+\sum_jU^o_{i,j}x_j^{(t)}+\sum_jW_{i,j}^oh_j^{(t-1)}\bigg)
+    \label{eq:6}
+\end{equation}
+
+\begin{equation}
+    h_i^{(t)}=\tanh(s_i^{(t)})q_i^{(t)}
+    \label{eq:7}
+\end{equation}
+其中，$\textbf{b}^o$、$\textbf{U}^o$、$\textbf{W}^o$分别表示偏置、输入权重和输出权重。
 
 \subsection{汽车功能安全概述}
+汽车功能安全，一般是指在不存在电子或电气工程系统异常情况下所出现的不合理的危险\cite{刘法旺2021自动驾驶系统功能安全与预期功能安全研究}。目前学界对于功能安全的研究与开发一般遵循ISO 26262标准。该标准由ISO于2011年发布，其中主要包含了以下几点\cite{iso_2018}:
+\begin{enumerate}
+    \item 如何量化产品的安全等级；
+    \item 如何根据不同安全等级设计对应的安全措施；
+    \item 如何规避与控制系统性故障及随机故障；
+    \item 如何对功能安全进行管理。
+\end{enumerate}
+
+
 \subsection{国内外研究现状}
 \subsubsection{智能网联汽车GNSS位置欺骗攻击检测方面}
 \subsubsection{基于预测的GNSS位置欺骗攻击检测算法}
