@@ -4,7 +4,13 @@
 \usepackage{szutils}%在这里放置需要的宏包，并设置部分所需内容
 \usepackage{romannum}
 \usepackage{zhlipsum}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[linesnumbered,ruled]{algorithm2e}
+
 \setcounter{secnumdepth}{4}
+\setCJKfamilyfont{kai}{全字庫正楷體}
+\renewcommand{\kaishu}{\CJKfamily{kai}}
 
 \begin{document}
 
@@ -39,8 +45,8 @@
 
 
 	%参考文献
-	\kaishu
-	\bibliographystyle{plain}
+    \kaishu
+	\bibliographystyle{apalike}
 	\addcontentsline{toc}{section}{参考文献} %向目录中添加条目，以章/section的名义
 	\bibliography{main}
 

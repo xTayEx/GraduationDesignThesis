@@ -9,3 +9,7 @@ $$
 $$
 g_i^{(t)}=\sigma\bigg(b_i^g+\sum_jU_{i,j}^gx_j^{(t)}+\sum_jW_{i,j}^gh_j^{(t-1)}\bigg)
 $$
+
+$$
+\|a-b\|
+$$
