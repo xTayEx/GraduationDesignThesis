@@ -6,36 +6,25 @@
 
 \vskip 20bp
 
-\hspace{4bp} {\zihao{-4}\textbf{【 Abstract】}} 
-Pairwise learning algorithms are a vital technique
-for personalized ranking with implicit feedback. They usually
-assume that each user is more interested in items which have
-been selected by the user than remaining ones. This pairwise
-assumption usually derives massive training pairs. To deal with
-such large-scale training data, the learning algorithms are usually
-based on stochastic gradient descent with uniformly drawn pairs.
-However, the uniformly sampling strategy often results in slow
-convergence. In this paper, we first uncover the reasons of
-slow convergence. Then, we associate contents of entities with
-characteristics of dataset to develop an adaptive item sampler
-for drawing informative training data. In this end, to devise a
-robust personalized ranking method, we accordingly embed our
-sampler into Bayesian Personalized Ranking (BPR) framework,
-and further propose a Content-aware and Adaptive Bayesian
-Personalized Ranking (CA-BPR) method, which can model both
-contents and implicit feedbacks in a unified learning process. The
-experimental results show that our adaptive item sampler can indeed improve recommendation performance.
+\hspace{4bp} {\zihao{-4}\textbf{【 Abstract】}}
+With the booming development of machine learning, data mining and other technologies, various emerging technologies are being created. This includes intelligent connected cars. Smart Internet-connected vehicles are different from traditional cars in that they are equipped with various sensors and actuators, as well as combined with modern communication and interconnection technologies, which can realize information exchange between vehicles, vehicles and people, and vehicles and roads. However, the GNSS location spoofing problem associated with intelligent connected cars also frequently plagues major manufacturers and researchers. Therefore, this paper focuses on the detection of GNSS position spoofing attacks on intelligent connected cars and the corresponding functional safety contingency strategies. The main work of this paper can be summarized as the following three points.
+\begin{enumerate}
+    \item For GNSS position spoofing attacks on intelligent connected cars, an algorithm that can effectively implement attack detection is designed and implemented based on LSTM networks in machine learning, using publicly available datasets to build a training set. The data needed to train the LSTM network are velocity, steering angle, forward acceleration, and the distance the vehicle moves between adjacent time stamps. In this paper, the GNSS location point data in the original data are converted into distances by using the Haverson's great circle formula.
+    \item The spoofing dataset was obtained by modifying part of the data in the public dataset, and experiments were conducted with this as the test set. The experimental results show that the algorithm designed in this paper can effectively detect GNSS location spoofing attacks against intelligent connected cars.
+    \item Based on the ISO 26262 standard, the functional safety risks that intelligent connected vehicles may face in the case of GNSS location spoofing attacks are analyzed using the HARA method, and the corresponding risk levels are also classified, and suitable contingency strategies are designed. Thus, the linkage of algorithm detection and contingency strategy is realized.
+\end{enumerate}
+In summary, this paper designs a location spoofing attack detection algorithm based on LSTM technology and ISO 26262 standard for the GNSS module of intelligent connected cars, and also designs a corresponding functional safety contingency strategy. The detection algorithm can work effectively, but there is still room for improvement in the scene refinement. The GNSS positioning error in different scenarios can be obtained later by collecting data from real vehicles, so as to refine the detection performance in different driving scenarios.
 
 \vskip 10bp
 
 \hspace{5bp}{\zihao{-4}\textbf{【 Keywords】}}
-Recommendation System; Collaborative Filtering; Adaptive Sampling
+intelligent Connected Vehicle; GNSS; Functional Safety; LSTM
 
 
 \vskip 20bp
 
 \begin{flushright}
-	\kaishu 指导教师:\ 潘微科 \hspace{3cm}{ }
+	\kaishu 指导教师:\ 肖志娇 \hspace{3cm}{ }
 \end{flushright}
 
 \label{lastpage}%%%%显示总页数

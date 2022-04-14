@@ -1,4 +1,5 @@
 \section{基于LSTM进行汽车位置预测的GNSS位置欺骗攻击检测算法}
+\label{sec:chapter03}
 \subsection{模型概述}
 如\ref{sec:LSTM_gaishu}所述，LSTM作为传统RNN的改进模型，可以解决长序列问题中长期依赖的问题。对于本文中所涉及到的GNSS位置欺骗检测问题，由于汽车的移动轨迹可以看作是一个有依赖关系的连续序列，因此，可以使用LSTM作为问题的解决方案。模型的检测思路为，以被欺骗前目标车辆的CAN速度、IMU前向加速度以及转向角作为输入，输出为下一时刻目标车辆所处位置与当前车辆位置之间距离的预测值$dis_p$。计算$dis_p$与车辆实际移动距离$dis_g$的绝对值$dis_{abs}$，并设置欺骗阈值$\gamma$。若满足$dis_{abs}>\gamma$，则认为此时目标车辆受到了GNSS位置欺骗。$\gamma$的定义如下：
 \begin{equation}
@@ -63,11 +64,10 @@
     \caption{预测距离值与真实距离值对比}
     \label{fig:model_eval}
 \end{figure}
-% \zhlipsum
 从表(\ref{tab:metrics})以及图\ref{fig:model_eval}可以看出，模型的预测精确度较高，可以较好地实现GNSS位置欺骗攻击检测的目的。
 
 \subsection{GNSS位置欺骗攻击检测}
-本文所采取的欺骗攻击检测方法，是通过比对上述模型的预测行驶距离与实际行驶距离来实现的。若两者间的差值大于误差阈值，则认为此时目标车辆受到了欺骗。检测算法伪代码见算法\ref{algo:dectection}。\ref{sec:model_train}中定义欺骗阈值$\gamma=\epsilon_{GNSS}+\epsilon_{LSTM}$。另外，由\ref{sec:model_train}可得知，模型的平均预测误差为0.070112m；同时，由\cite{kaplan2005understanding}可知，目前常用的GNSS定位技术误差可认为是10m。因此，有$\gamma=10+0.070112(m)$。
+本文所采取的欺骗攻击检测方法，是通过比对上述模型的预测行驶距离与实际行驶距离来实现的。若两者间的差值大于误差阈值，则认为此时目标车辆受到了欺骗。检测算法伪代码见算法\ref{algo:dectection}。\ref{sec:model_train}中定义欺骗阈值$\gamma=\epsilon_{GNSS}+\epsilon_{LSTM}$。另外，由\ref{sec:model_train}可得知，模型的平均预测误差为0.070112m；同时，由\cite{kaplan2005understanding}可知，目前常用的GNSS定位技术误差可认为是10m。因此，有$\gamma=10+0.070112=10.070112(m)$。
 
 \begin{algorithm}
     \KwIn{来自CAN的车速$v$, 来自IMU的前向加速度$a_{forward}$, 转向角$\omega$，来自GNSS模块的实际行驶距离$dis_{truth}$，行驶距离预测模型$M$，欺骗阈值$\gamma$}
